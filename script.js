@@ -22,16 +22,17 @@ const init = () => {
   weekDay();
   time();
   daysToNewYear();
+  
 };
 
 const sayMessage = () => {
   let hours = date.getHours();
 
-  if (0 <= hours < 5) {
+  if (hours >= 0 && hours < 5) {
     helloMessage.textContent = 'Доброй ночи';
-  } else if (5 <= hours < 12) {
+  } else if (hours >= 5 && hours < 12) {
     helloMessage.textContent = 'Доброе утро';
-  } else if (12 <= hours < 17) {
+  } else if (hours >= 12 && hours < 17) {
     helloMessage.textContent = 'Добрый день';
   } else {
     helloMessage.textContent = 'Добрый вечер';
@@ -44,13 +45,15 @@ const weekDay = () => {
 };
 
 const time = () => {
-  let currentTime = date.toLocaleTimeString('en');
-  timeNow.textContent = `Текущее времяя: ${currentTime}`;
+  let currentTime = new Date().toLocaleTimeString('en');
+  timeNow.textContent = `Текущее время: ${currentTime}`;
 };
+
 
 const daysToNewYear = () => {
   let nowTime = new Date().getTime();
-  let nextYear = new Date('1 januar 2023').getTime();
+  let year = date.getFullYear() + 1;
+  let nextYear = new Date(`1 januar ${year}`).getTime();
   let timeRemaining = (nextYear - nowTime) / 1000;
   let daysToNewYear = Math.ceil(timeRemaining / 60 / 60 / 24);
   
@@ -58,3 +61,4 @@ const daysToNewYear = () => {
 };
 
 init();
+setInterval(init, 1000);
